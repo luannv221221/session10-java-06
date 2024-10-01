@@ -65,6 +65,7 @@
             <th>Name</th>
             <th>Description</th>
             <th>Status</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -76,10 +77,15 @@
                 <td>${category.status ?
                  '<span class="badge badge-success">Active</span>'
                  : '<span class="badge badge-danger">Inactive</span>'}</td>
+                <td>
+                    <a class="btn btn-primary text-white">Edit</a>
+                    <a class="btn btn-danger text-white">Delete</a>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
+    <a href="category?action=add" class="btn btn-success">Thêm mới</a>
 </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -1,12 +1,10 @@
 package com.ra.model.dao;
 
+
 import com.ra.database.ConnectionDB;
 import com.ra.model.entity.Category;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +36,23 @@ public class CategoryDAOImpl implements CategoryDAO{
 
     @Override
     public Boolean create(Category category) {
-        return null;
+        Connection connection = null;
+
+        try {
+            connection = ConnectionDB.openConnection();
+            CallableStatement statement = connection.prepareCall("{call proc_add_cate(?,?,?)}");
+            statement.setString(1,category.getCategoryName());
+            statement.setString(2, category.getDescription());
+            statement.setBoolean(3,category.isStatus());
+            if(statement.executeUpdate() > 0){
+                return true;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            ConnectionDB.closeConnection(connection);
+        }
+        return false;
     }
 
     @Override
